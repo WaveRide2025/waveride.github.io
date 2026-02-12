@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waveride - Email Verified</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eeeeee;
+            font-family: Arial, sans-serif;
+            color: #222831;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 520px;
+            padding: 24px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 16px auto;
+            width: 120px;
+            height: auto;
+        }
+        .app-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #222831;
+        }
+        .heading {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            color: #222831;
+        }
+        .text {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            color: #393E46;
+        }
+        .btn {
+            background-color: #00adb5;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn:hover {
+            background-color: #009ca3;
+        }
+        .footer {
+            font-size: 12px;
+            color: #555;
+            margin-top: 24px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+            <img src="https://raw.githubusercontent.com/waveride2025/waveride.github.io/main/assets/waveride-logo.png" alt="Waveride Logo" class="logo" />
+
+            <div class="app-title">Waveride</div>
+
+            <div class="heading">Email Verified Successfully!</div>
+            <div class="text">
+                Your account has been confirmed.<br>
+                You can now return to the app to log in.
+            </div>
+
+            <div>
+                <a id="appLink" href="#" class="btn">
+                    Open App
+                </a>
+            </div>
+
+            <div class="footer">
+                If the app doesn't open automatically, tap the button above.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Get the tokens from the URL hash
+        const params = window.location.hash;
+        
+        // 2. Construct the Deep Link for Flutter
+        // Format: io.supabase.flutter://login-callback/#access_token=...
+        const deepLink = "io.supabase.flutter://login-callback/" + params;
+
+        // 3. Update the button URL
+        const btn = document.getElementById("appLink");
+        if (params) {
+            btn.href = deepLink;
+            // 4. Attempt to auto-redirect immediately
+            window.location.href = deepLink;
+        } else {
+            // If no tokens found, just redirect to a generic home or show error
+            btn.style.display = "none";
+            document.querySelector(".text").innerHTML = "Verification incomplete or link expired.";
+        }
+    </script>
+
+</body>
+</html>
