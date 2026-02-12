@@ -102,26 +102,26 @@
     </div>
 
     <script>
-        // 1. Get the tokens from the URL hash
-        const params = window.location.hash;
+        const searchParams = window.location.search;
+        const hashParams = window.location.hash; 
         
-        // 2. Construct the Deep Link for Flutter
-        // Format: io.supabase.flutter://login-callback/#access_token=...
-        const deepLink = "io.supabase.flutter://login-callback/" + params;
+        const combinedParams = searchParams + hashParams;
+        const deepLink = "io.supabase.flutter://login-callback/" + combinedParams;
 
-        // 3. Update the button URL
         const btn = document.getElementById("appLink");
-        if (params) {
+        const msg = document.querySelector(".text");
+
+        if (combinedParams.length > 1) {
             btn.href = deepLink;
-            // 4. Attempt to auto-redirect immediately
             window.location.href = deepLink;
         } else {
-            // If no tokens found, just redirect to a generic home or show error
             btn.style.display = "none";
-            document.querySelector(".text").innerHTML = "Verification incomplete or link expired.";
+            msg.innerHTML = "Verification incomplete or link expired.<br>No token found in URL.";
+            msg.style.color = "red";
         }
     </script>
 
 </body>
 
 </html>
+
